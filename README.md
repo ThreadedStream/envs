@@ -33,9 +33,11 @@ func main() {
   fmt.Printf("Host: %s, Port: %d, UseSSL: %t", c.Host, c.Port, c.UseSSL)
   
   // Host: 127.0.0.1, Port: 3000, UseSSL: true 
-}```
+}
+```
 
 # TODOs
 
 [] Add more tests 
   
+
