@@ -23,6 +23,7 @@ func parse(value interface{}) error {
 		env      string
 		fallback string
 		ok       bool
+		m        map[string]string
 	)
 
 	v := reflect.ValueOf(value).Elem()
@@ -37,7 +38,12 @@ func parse(value interface{}) error {
 			log.Printf("field %s is unsettable", v.Type().Field(i).Name)
 			continue
 		}
-		m := parseParams(string(v.Type().Field(i).Tag))
+		if tag := string(v.Type().Field(i).Tag); tag != "" {
+			m = parseParams(tag)
+		} else {
+			continue
+		}
+
 		if env, ok = m[envKw]; !ok {
 			// Ignoring this field
 			continue
