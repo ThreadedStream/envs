@@ -47,7 +47,7 @@ func parse(value interface{}) error {
 		if env, ok = m[envKw]; !ok {
 			// Ignoring this field
 			continue
-		}
+		}  
 		env = strings.Trim(env, "\"")
 		fallback = strings.Trim(m[fallbackKw], "\"")
 		switch v.Field(i).Kind() {
