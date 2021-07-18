@@ -36,8 +36,4 @@ func main() {
 }
 ```
 
-# TODOs
-
-[] Add more tests 
-  
 
