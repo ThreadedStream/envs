@@ -47,7 +47,7 @@ func parse(value interface{}) error {
 		if env, ok = m[envKw]; !ok {
 			// Ignoring this field
 			continue
-		}  
+		}
 		env = strings.Trim(env, "\"")
 		fallback = strings.Trim(m[fallbackKw], "\"")
 		switch v.Field(i).Kind() {
@@ -80,10 +80,9 @@ func parseParams(tag string) map[string]string {
 	params := strings.Split(tag, " ")
 	m := make(map[string]string, len(params))
 	for _, param := range params {
-		paramSet := strings.Split(param, ":")
 		var (
-			first  = paramSet[0]
-			second = paramSet[1]
+			first, idx = getTag(param)
+			second     = param[idx:]
 		)
 		m[first] = second
 	}
@@ -133,4 +132,19 @@ func envInt(key string, fallback int64) int64 {
 	}
 
 	return intVal
+}
+
+func getTag(val string) (string, int) {
+	var (
+		c   rune
+		tag []rune
+		idx int
+	)
+	for idx, c = range val {
+		if c == ':' {
+			break
+		}
+		tag = append(tag, c)
+	}
+	return string(tag), idx + 1
 }
